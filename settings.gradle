@@ -1,0 +1,2 @@
+include ':scribe'
+rootProject.name = "Scribe"
