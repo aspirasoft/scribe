@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 
 android {
@@ -38,4 +39,29 @@ tasks.withType(Javadoc) {
 
 repositories {
     mavenCentral()
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/aspirasoft/scribe")
+            credentials {
+                username = properties.getProperty("github.user")
+                password = properties.getProperty("github.token")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            groupId = 'dev.aspirasoft.apis'
+            artifactId = 'scribe'
+            version = '1.0.0'
+
+            // fixme: from(components.java)
+        }
+    }
 }
