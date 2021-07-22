@@ -53,12 +53,12 @@ internal fun String.toTitleCase(): String {
     this.split(' ')
         .map { word ->
             val capitalized = when {
-                last == null -> word.capitalize(Locale.getDefault())
-                ignore.contains(word.toLowerCase(Locale.getDefault())) -> word
+                last == null -> word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                ignore.contains(word.lowercase(Locale.getDefault())) -> word
                 dividers.any {
                     it == kotlin.runCatching { last?.last() }.getOrNull()
-                } -> word.capitalize(Locale.getDefault())
-                else -> word.capitalize(Locale.getDefault())
+                } -> word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                else -> word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             }
             last = word
             capitalized

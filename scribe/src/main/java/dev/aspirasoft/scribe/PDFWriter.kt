@@ -134,7 +134,7 @@ class PDFWriter internal constructor(
     }
 
     private fun write(text: String, tag: String) {
-        val paragraphStyle = when (tag.toLowerCase(Locale.getDefault())) {
+        val paragraphStyle = when (tag.lowercase(Locale.getDefault())) {
             "title" -> documentTheme.title
             "subtitle" -> documentTheme.subtitle
             "h1" -> documentTheme.h1
@@ -150,7 +150,7 @@ class PDFWriter internal constructor(
         pen.currentStyle = paragraphStyle
         val capitalizedText = when (paragraphStyle.capitalization) {
             Capitalization.NONE -> text
-            Capitalization.ALL_CAPS -> text.toUpperCase(Locale.getDefault())
+            Capitalization.ALL_CAPS -> text.uppercase(Locale.getDefault())
             Capitalization.TITLE_CASE -> text.toTitleCase()
         }
         writeParagraphs(capitalizedText)
